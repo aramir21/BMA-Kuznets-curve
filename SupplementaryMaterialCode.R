@@ -1795,3 +1795,111 @@ FigL1 <- ggplot(dfL1, aes(lnfig)) +                    # basic graphical object
 
 FigL1
 
+################################# Beta-Binomial prior model probability #################################
+############################### Fixed effects OLS Reg: Individual + Time ################################
+rm(list=ls())
+dataI <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
+attach(dataI)
+dataI$lnGPDpcXfederal <- federal*lnGDPpc
+summary(dataI)
+data <- na.omit(dataI)
+summary(data)
+attach(data)
+
+set.seed(010101)
+FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
+TimeEff <- cbind(t1, t2, t3, t4)
+X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, trade, fdi, school, rents, gasoline,
+           land, aid, areaXgasoline, ethnic_gini, lnGPDpcXfederal, polity2)
+
+M <- expand.grid(c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0))
+colnames(M) <- colnames(X)
+n <- length(gini)
+
+k <- 14
+
+logMargLikeFunctNormal <- function(Xr){
+  Reg <- lm(gini~FixedEff+TimeEff+Xr)
+  ResReg <- summary(Reg) 
+  k <- length(ResReg[["coefficients"]][,1]) 
+  BIC <- k*log(n)+n*log(ResReg[["sigma"]]^2*(n-k)/n)
+  logMargLike <- -BIC/2
+  return(logMargLike)
+}
+logMargLikeFunctNormal(X)
+
+logMargLikOLS <- NULL
+for(m in 1:dim(M)[1]){
+  idXs <- which(M[m,] == 1)
+  Xm <- X[,idXs]
+  if(length(idXs)==0){
+    Reg <- lm(gini~FixedEff+TimeEff)
+    ResReg <- summary(Reg) 
+    k <- length(ResReg[["coefficients"]][,1]) 
+    BIC <- k*log(n)+n*log(ResReg[["sigma"]]^2*(n-k)/n)
+    logMargLike <- -BIC/2
+    logMargLikOLS[m] <- logMargLike
+  }else{
+    logMargLikOLS[m] <- logMargLikeFunctNormal(Xm)
+  }
+  print(m)
+}
+
+idXs <- which(M[which.max(logMargLikOLS),] == 1)
+Xm <- X[,idXs]
+RegMax <- lm(gini~FixedEff+TimeEff+Xm-1)
+summary(RegMax)
+
+PriorOdds <- function(Xr, l){
+  # Xr: design matrix
+  # l: prior model size
+  if(is.null(dim(Xr)[2])==1){
+    ks <- 1
+  }else{
+    ks <- dim(Xr)[2]
+  }
+  kr <- ks # +dim(FixedEff)[2]+dim(TimeEff)[2]
+  km <- (kr - l)/l
+  LogNumPriorOdds <- lgamma(1+kr)+lgamma(km+k-kr)
+  return(LogNumPriorOdds)
+}
+PriorOdds(Xr = X, l = 5)
+
+l <- 5
+LogNumPriorOdds <- NULL
+for(m in 1:dim(M)[1]){
+  idXs <- which(M[m,] == 1)
+  Xm <- X[,idXs]
+  if(length(idXs)==0){
+    kr <- 0 #dim(FixedEff)[2]+dim(TimeEff)[2]
+    km <- (kr - l)/l
+    LogNumPriorOdds[m] <- lgamma(1+kr)+lgamma(km+k-kr)
+  }else{
+    LogNumPriorOdds[m] <- PriorOdds(Xr = Xm, l = l)
+  }
+  print(m)
+}
+
+logPostOdds <- logMargLikOLS+LogNumPriorOdds
+
+idMax <- which.max(logPostOdds)
+plot(sapply(1:2^14, function(m){exp(LogNumPriorOdds[m]-LogNumPriorOdds[idMax])}))
+OddsRatMax <- NULL
+for(m in 1:dim(M)[1]){
+  OddsRatMax[m] <- exp(LogNumPriorOdds[m]+logMargLikOLS[m]-(LogNumPriorOdds[idMax]+logMargLikOLS[idMax]))
+}
+
+summary(OddsRatMax)
+Pmax <- 1/sum(OddsRatMax)
+ProbModel <- OddsRatMax*Pmax 
+summary(ProbModel)
+plot(ProbModel)
+ProbModelOrd <- sort(ProbModel, decreasing = TRUE)
+idBestMo <- sapply(1:length(ProbModelOrd), function(i){which(ProbModel == ProbModelOrd[i])})
+nbest <- 1:10
+Top10 <- cbind(ProbModelOrd[nbest], M[idBestMo[nbest],])
+sum(ProbModelOrd[nbest])
+PIP <- sort(colSums(ProbModelOrd*M[idBestMo,]), decreasing = TRUE)
+PIP
+OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
+save(OLSfixedIndTim, file = "OLSfixedIndTimBetaBinNew.RData")
