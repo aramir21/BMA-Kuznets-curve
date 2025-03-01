@@ -13,10 +13,7 @@ attach(data)
 
 set.seed(010101)
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEffex <- as.matrix(fastDummies::dummy_cols(year)[,-1])
 TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
 X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, lnGDPpc4, lnGDPpc5, trade, fdi, school, rents, gasoline,
            land, aid, areaXgasoline, ethnic_gini, lnGPDpcXfederal, polity2)
 FixedReg <- lm(gini~FixedEff+TimeEff+X-1)
@@ -149,7 +146,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLSfixedInd <- list(Top10 = Top10, PIP = PIP)
 save(OLSfixedInd, file = "OLSfixedIndNewV2.RData")
-load(file = "OLSfixedIndNewV2.RData")
+# load(file = "OLSfixedIndNewV2.RData")
 
 ############################### Fixed effects OLS Reg: Time ################################
 logMargLikeFunctNormal <- function(Xr){
@@ -161,7 +158,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
 
 logMargLikOLS2 <- NULL
 for(m in 1:dim(M)[1]){
@@ -203,7 +199,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLSfixedTim <- list(Top10 = Top10, PIP = PIP)
 save(OLSfixedTim, file = "OLSfixedTimNewV2.RData")
-load(file = "OLSfixedTimNewV2.RData")
+# load(file = "OLSfixedTimNewV2.RData")
 
 ############################### No fixed effects OLS Reg ################################
 
@@ -258,7 +254,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLS <- list(Top10 = Top10, PIP = PIP)
 save(OLS, file = "OLSnewV2.RData")
-load(file = "OLSnewV2.RData")
+# load(file = "OLSnewV2.RData")
 
 #####Summary PIP ######
 summary <- cbind(OLSfixedIndTim$PIP, OLSfixedInd$PIP, OLSfixedTim$PIP, OLS$PIP)
@@ -297,7 +293,7 @@ sum(ProbModelOrd[nbest])
 
 ################# Polynomial of degree 4 #########################
 
-dataI <- read.csv("regionalKuznetsV3.csv", sep = ",", header = TRUE)
+dataI <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
 attach(dataI)
 dataI$lnGPDpcXfederal <- federal*lnGDPpc
 summary(dataI)
@@ -307,10 +303,7 @@ attach(data)
 
 set.seed(010101)
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEffex <- as.matrix(fastDummies::dummy_cols(year)[,-1])
 TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
 X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, lnGDPpc4, trade, fdi, school, rents, gasoline,
            land, aid, areaXgasoline, ethnic_gini, lnGPDpcXfederal, polity2)
 FixedReg <- lm(gini~FixedEff+TimeEff+X-1)
@@ -333,8 +326,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
-logMargLikeFunctNormal(X[,1:4])
 
 logMargLikOLS <- NULL
 for(m in 1:dim(M)[1]){
@@ -377,7 +368,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
 save(OLSfixedIndTim, file = "OLSfixedIndTimNewV2p4.RData")
-load(file = "OLSfixedIndTimNewV2p4.RData")
+# load(file = "OLSfixedIndTimNewV2p4.RData")
 
 ############################### Fixed effects OLS Reg: Individual ################################
 logMargLikeFunctNormal <- function(Xr){
@@ -389,7 +380,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
 
 logMargLikOLS1 <- NULL
 for(m in 1:dim(M)[1]){
@@ -431,7 +421,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLSfixedInd <- list(Top10 = Top10, PIP = PIP)
 save(OLSfixedInd, file = "OLSfixedIndNewV2p4.RData")
-load(file = "OLSfixedIndNewV2.RData")
+# load(file = "OLSfixedIndNewV2.RData")
 
 ############################### Fixed effects OLS Reg: Time ################################
 logMargLikeFunctNormal <- function(Xr){
@@ -443,7 +433,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
 
 logMargLikOLS2 <- NULL
 for(m in 1:dim(M)[1]){
@@ -485,7 +474,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLSfixedTim <- list(Top10 = Top10, PIP = PIP)
 save(OLSfixedTim, file = "OLSfixedTimNewV2p4.RData")
-load(file = "OLSfixedTimNewV2p4.RData")
+# load(file = "OLSfixedTimNewV2p4.RData")
 
 ############################### No fixed effects OLS Reg ################################
 
@@ -498,7 +487,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
 
 logMargLikOLS3 <- NULL
 for(m in 1:dim(M)[1]){
@@ -540,7 +528,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLS <- list(Top10 = Top10, PIP = PIP)
 save(OLS, file = "OLSnewV2p4.RData")
-load(file = "OLSnewV2p4.RData")
+# load(file = "OLSnewV2p4.RData")
 
 #####Summary PIP ######
 summary <- cbind(OLSfixedIndTim$PIP, OLSfixedInd$PIP, OLSfixedTim$PIP, OLS$PIP)
@@ -580,10 +568,8 @@ sum(ProbModelOrd[nbest])
 
 ################# Polynomial of degree 3 #########################
 rm(list=ls())
-memory.limit(size = 1048576)
-library(betareg)
-# data <- read.csv("simpleTAB04noNAv1.csv", sep = ",", header = TRUE)
-dataI <- read.csv("regionalKuznetsV3_pol3.csv", sep = ",", header = TRUE)
+dataI <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
+
 attach(dataI)
 dataI$lnGPDpcXfederal <- federal*lnGDPpc
 summary(dataI)
@@ -593,10 +579,7 @@ attach(data)
 
 set.seed(010101)
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEffex <- as.matrix(fastDummies::dummy_cols(year)[,-1])
 TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
 X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, trade, fdi, school, rents, gasoline,
            land, aid, areaXgasoline, ethnic_gini, lnGPDpcXfederal, polity2)
 FixedReg <- lm(gini~FixedEff+TimeEff+X-1)
@@ -619,8 +602,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
-logMargLikeFunctNormal(X[,1:4])
 
 logMargLikOLS <- NULL
 for(m in 1:dim(M)[1]){
@@ -663,7 +644,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
 save(OLSfixedIndTim, file = "OLSfixedIndTimNewV2p3.RData")
-load(file = "OLSfixedIndTimNewV2p3.RData")
+# load(file = "OLSfixedIndTimNewV2p3.RData")
 
 ############################### Fixed effects OLS Reg: Individual ################################
 logMargLikeFunctNormal <- function(Xr){
@@ -675,7 +656,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
 
 logMargLikOLS1 <- NULL
 for(m in 1:dim(M)[1]){
@@ -717,7 +697,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLSfixedInd <- list(Top10 = Top10, PIP = PIP)
 save(OLSfixedInd, file = "OLSfixedIndNewV2p3.RData")
-load(file = "OLSfixedIndNewV2p3.RData")
+# load(file = "OLSfixedIndNewV2p3.RData")
 
 ############################### Fixed effects OLS Reg: Time ################################
 logMargLikeFunctNormal <- function(Xr){
@@ -729,7 +709,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
 
 logMargLikOLS2 <- NULL
 for(m in 1:dim(M)[1]){
@@ -771,7 +750,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLSfixedTim <- list(Top10 = Top10, PIP = PIP)
 save(OLSfixedTim, file = "OLSfixedTimNewV2p3.RData")
-load(file = "OLSfixedTimNewV2p3.RData")
+# load(file = "OLSfixedTimNewV2p3.RData")
 
 ############################### No fixed effects OLS Reg ################################
 
@@ -784,7 +763,6 @@ logMargLikeFunctNormal <- function(Xr){
   logMargLike <- -BIC/2
   return(logMargLike)
 }
-logMargLikeFunctNormal(X)
 
 logMargLikOLS3 <- NULL
 for(m in 1:dim(M)[1]){
@@ -826,7 +804,7 @@ sum(ProbModelOrd[nbest])
 PIP <- colSums(ProbModelOrd[1:10000]*M[unlist(idBestMo[1:10000]),])
 OLS <- list(Top10 = Top10, PIP = PIP)
 save(OLS, file = "OLSnewV2p3.RData")
-load(file = "OLSnewV2p3.RData")
+# load(file = "OLSnewV2p3.RData")
 
 #####Summary PIP ######
 summary <- cbind(OLSfixedIndTim$PIP, OLSfixedInd$PIP, OLSfixedTim$PIP, OLS$PIP)
@@ -866,15 +844,10 @@ sum(ProbModelOrd[nbest])
 ############################################################################
 ########### Figures #######################
 rm(list=ls())
-memory.limit(size = 1048576)
-library(betareg)
-# data <- read.csv("simpleTAB04noNAv1.csv", sep = ",", header = TRUE)
-dataI <- read.csv("regionalKuznetsV3.csv", sep = ",", header = TRUE)
+dataI <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
 attach(dataI)
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
 TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
 Xgdp5 <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, lnGDPpc4, lnGDPpc5)
 
 form <- gini~Xgdp5+FixedEff+TimeEff
@@ -907,7 +880,7 @@ df <- data.frame(cbind(gini, lnGDPpcOrd, MeanPred))
 
 fig1 <- ggplot(df, aes(lnGDPpcOrd)) +                    # basic graphical object
   geom_point(aes(y=gini), colour="black") +  # first layer
-  geom_line(aes(y=MeanPred), colour="blue", size = 1.2) +  # second layer
+  geom_line(aes(y=MeanPred), colour="blue", linewidth = 1.2) +  # second layer
   xlab("lnGDP") + ylab("Gini")
 fig1
 
@@ -938,7 +911,7 @@ df <- data.frame(cbind(gini, lnGDPpcOrd, MeanPred4))
 
 fig2 <- ggplot(df, aes(lnGDPpcOrd)) +                    # basic graphical object
   geom_point(aes(y=gini), colour="black") +  # first layer
-  geom_line(aes(y=MeanPred4), colour="blue", size = 1.2) +  # second layer
+  geom_line(aes(y=MeanPred4), colour="blue", linewidth = 1.2) +  # second layer
   xlab("lnGDP") + ylab("Gini")
 fig2
 
@@ -969,7 +942,7 @@ df <- data.frame(cbind(gini, lnGDPpcOrd, MeanPred3))
 
 fig3 <- ggplot(df, aes(lnGDPpcOrd)) +                    # basic graphical object
   geom_point(aes(y=gini), colour="black") +  # first layer
-  geom_line(aes(y=MeanPred3), colour="blue", size = 1.2) +  # second layer
+  geom_line(aes(y=MeanPred3), colour="blue", linewidth = 1.2) +  # second layer
   xlab("lnGDP") + ylab("Gini")
 fig3
 
@@ -1000,7 +973,7 @@ df <- data.frame(cbind(gini, lnGDPpcOrd, MeanPred2))
 
 fig4 <- ggplot(df, aes(lnGDPpcOrd)) +                    # basic graphical object
   geom_point(aes(y=gini), colour="black") +  # first layer
-  geom_line(aes(y=MeanPred2), colour="blue", size = 1.2) +  # second layer
+  geom_line(aes(y=MeanPred2), colour="blue", linewidth = 1.2) +  # second layer
   xlab("lnGDP") + ylab("Gini")
 fig4
 
@@ -1014,17 +987,13 @@ Allfig
 
 ######### Polynomial 5 ############
 
-data <- read.csv("regionalKuznetsV3.csv", sep = ",", header = TRUE)
+data <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
 attach(data)
 
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEffex <- as.matrix(fastDummies::dummy_cols(year)[,-1])
 TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
 X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, lnGDPpc4, lnGDPpc5)
 M <- expand.grid(c(1,0), c(1,0), c(1,0), c(1,0), c(1,0))
-# colnames(M) <- colnames(X)
 
 
 ############################### Fixed effects OLS Reg: Individual + Time ################################
@@ -1046,7 +1015,6 @@ logMargLikeFunctNormalCoef <- function(Xr){
   Rest <- list(Coef = Coef, VarCoef = VarCoef, logMargLike = logMargLike)
   return(Rest)
 }
-logMargLikeFunctNormalCoef(X)
 
 logMargLikOLS <- NULL
 List.Coef <- vector(mode='list', length=2^15)
@@ -1110,22 +1078,17 @@ CoefMean/CoefVar^0.5
 OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
 cbind(PIP, CoefMean, CoefVar^0.5, c(Top10[1,-1]))
 save(OLSfixedIndTim, file = "OLSfixedIndTimNewV1p5Coeff.RData")
-load(file = "OLSfixedIndTimNewV1p5Coeff.RData")
+# load(file = "OLSfixedIndTimNewV1p5Coeff.RData")
 
 ######### Polynomial 4 ############
 
-data <- read.csv("regionalKuznetsV3.csv", sep = ",", header = TRUE)
+data <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
 attach(data)
 
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEffex <- as.matrix(fastDummies::dummy_cols(year)[,-1])
 TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
 X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, lnGDPpc4)
 M <- expand.grid(c(1,0), c(1,0), c(1,0), c(1,0))
-# colnames(M) <- colnames(X)
-
 
 ############################### Fixed effects OLS Reg: Individual + Time ################################
 logMargLikeFunctNormalCoef <- function(Xr){
@@ -1146,7 +1109,6 @@ logMargLikeFunctNormalCoef <- function(Xr){
   Rest <- list(Coef = Coef, VarCoef = VarCoef, logMargLike = logMargLike)
   return(Rest)
 }
-logMargLikeFunctNormalCoef(X)
 
 logMargLikOLS <- NULL
 List.Coef <- vector(mode='list', length=2^15)
@@ -1210,22 +1172,17 @@ CoefMean/CoefVar^0.5
 OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
 cbind(PIP, CoefMean, CoefVar^0.5, c(Top10[1,-1]))
 save(OLSfixedIndTim, file = "OLSfixedIndTimNewV1p4Coeff.RData")
-load(file = "OLSfixedIndTimNewV1p5Coeff.RData")
+# load(file = "OLSfixedIndTimNewV1p5Coeff.RData")
 
 ######### Polynomial 3 ############
 
-data <- read.csv("regionalKuznetsV3_pol3.csv", sep = ",", header = TRUE)
+data <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
 attach(data)
 
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEffex <- as.matrix(fastDummies::dummy_cols(year)[,-1])
 TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
 X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3)
 M <- expand.grid(c(1,0), c(1,0), c(1,0))
-# colnames(M) <- colnames(X)
-
 
 ############################### Fixed effects OLS Reg: Individual + Time ################################
 logMargLikeFunctNormalCoef <- function(Xr){
@@ -1310,11 +1267,11 @@ CoefMean/CoefVar^0.5
 OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
 cbind(PIP, CoefMean, CoefVar^0.5, c(Top10[1,-1]))
 save(OLSfixedIndTim, file = "OLSfixedIndTimNewV1p3Coeff.RData")
-load(file = "OLSfixedIndTimNewV1p3Coeff.RData")
+# load(file = "OLSfixedIndTimNewV1p3Coeff.RData")
 
 ######### Polynomial 2 ############
 
-data <- read.csv("regionalKuznetsV3_pol3.csv", sep = ",", header = TRUE)
+data <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
 attach(data)
 
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
@@ -1410,12 +1367,12 @@ CoefMean/CoefVar^0.5
 OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
 cbind(PIP, CoefMean, CoefVar^0.5, c(Top10[1,-1]))
 save(OLSfixedIndTim, file = "OLSfixedIndTimNewV1p2Coeff.RData")
-load(file = "OLSfixedIndTimNewV1p2Coeff.RData")
+# load(file = "OLSfixedIndTimNewV1p2Coeff.RData")
 
 
 #######################################################
-load(file = "OLSfixedIndTimNewV2p3.RData")
-dataI <- read.csv("regionalKuznetsV3_pol3.csv", sep = ",", header = TRUE)
+# load(file = "OLSfixedIndTimNewV2p3.RData")
+dataI <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
 data <- na.omit(dataI)
 attach(data)
 
@@ -1513,7 +1470,7 @@ CoefMean/CoefVar^0.5
 OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
 cbind(PIP, CoefMean, CoefVar^0.5, c(Top10[1,-1]))
 save(OLSfixedIndTim, file = "OLSfixedIndTimNewV1p3Coeff.RData")
-load(file = "OLSfixedIndTimNewV1p3Coeff.RData")
+# load(file = "OLSfixedIndTimNewV1p3Coeff.RData")
 
 ####### Jointness #######
 Ms <- 1:2^14
@@ -1564,14 +1521,11 @@ PMPX12n3Max <- max(PPM12n3)
 
 
 ######### Best model p3 ##########
-dataI <- read.csv("regionalKuznetsV3_pol3.csv", sep = ",", header = TRUE)
+dataI <- read.csv("regionalKuznets.csv", sep = ",", header = TRUE)
 attach(dataI)
 
 FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEffex <- as.matrix(fastDummies::dummy_cols(year)[,-1])
 TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
 X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, trade, fdi, school, rents, gasoline,
            land, aid, areaXgasoline, ethnic_gini, lnGPDpcXfederal, polity2)
 
@@ -1760,15 +1714,15 @@ MeanPred <- funPred(theta0)
 
 FigL <- ggplot(df, aes(lnfig)) +                    # basic graphical object
   geom_point(aes(y=giniNA), colour="black") +  # first layer
-  geom_line(aes(y=MeanPred), colour="blue", size = 1.2) +  # second layer
+  geom_line(aes(y=MeanPred), colour="blue", linewidth = 1.2) +  # second layer
   labs(x = "lnGDP", y = "Gini") +
   geom_vline(xintercept=pibMin, colour = "red") +
   geom_vline(xintercept=pibMax, colour = "red") +
   geom_vline(xintercept=min(lnGDPpc), colour = "green") +
   geom_vline(xintercept=max(lnGDPpc), colour = "green") +
-  geom_segment(aes(x = LimInfMin, y = y1, xend = LimSupMin, yend = y1), colour = "purple", size = 3) 
+  geom_segment(aes(x = LimInfMin, y = y1, xend = LimSupMin, yend = y1), colour = "purple", linewidth = 3) 
 # +
-#   geom_segment(aes(x = LimInfMax, y = y2, xend = LimSupMax, yend = y2, colour = "credible set"), size = 1.2)
+#   geom_segment(aes(x = LimInfMax, y = y2, xend = LimSupMax, yend = y2, colour = "credible set"), linewidth = 1.2)
 
 FigL 
 
@@ -1781,16 +1735,16 @@ df1 <- data.frame(cbind(giniNA, lnfig, MeanPredDer))
 
 
 FigD <- ggplot(df1, aes(lnfig)) +                    # basic graphical object
-  geom_line(aes(y=MeanPredDer), colour="blue", size = 1.2) +  # second layer
+  geom_line(aes(y=MeanPredDer), colour="blue", linewidth = 1.2) +  # second layer
   xlab("lnGDP") + ylab("Derivative") +
   geom_vline(xintercept=pibMin, colour = "red") +
   geom_vline(xintercept=pibMax, colour = "red") +
   geom_hline(yintercept=0, colour = "red") +
   geom_vline(xintercept=min(lnGDPpc), colour = "green") +
   geom_vline(xintercept=max(lnGDPpc), colour = "green") +
-  geom_segment(aes(x = min(lnGDPpc), y = LimInfSlopeMin, xend = min(lnGDPpc), yend = LimSupSlopeMin), colour = "purple", size = 3) +
-  geom_segment(aes(x = max(lnGDPpc), y = LimInfSlopeMax, xend = max(lnGDPpc), yend = LimSupSlopeMax), colour = "purple", size = 3)  +
-  geom_segment(aes(x = y2D0, y = LimInfSlopeMinLim, xend = y2D0, yend = LimSupSlopeMinLim), colour = "purple", size = 3) 
+  geom_segment(aes(x = min(lnGDPpc), y = LimInfSlopeMin, xend = min(lnGDPpc), yend = LimSupSlopeMin), colour = "purple", linewidth = 3) +
+  geom_segment(aes(x = max(lnGDPpc), y = LimInfSlopeMax, xend = max(lnGDPpc), yend = LimSupSlopeMax), colour = "purple", linewidth = 3)  +
+  geom_segment(aes(x = y2D0, y = LimInfSlopeMinLim, xend = y2D0, yend = LimSupSlopeMinLim), colour = "purple", linewidth = 3) 
 
 
 FigD
@@ -1799,7 +1753,7 @@ df2 <- data.frame(cbind(giniNA, lnfig, MeanPredDer2))
 
 FigD2 <- ggplot(df2, aes(lnfig)) +                    # basic graphical object
   geom_point(aes(y=giniNA), colour="black") +  # first layer
-  geom_line(aes(y=MeanPredDer2), colour="blue", size = 1.2) +  # second layer
+  geom_line(aes(y=MeanPredDer2), colour="blue", linewidth = 1.2) +  # second layer
   xlab("lnGDP") + ylab("Gini") +
   geom_vline(xintercept=pibMin, colour = "red") +
   geom_vline(xintercept=pibMax, colour = "red") +
@@ -1833,610 +1787,11 @@ thetaL1 <- c(0.205, -0.022, 0.001)
 MeanPredDer <- funPredDer(thetaL1)
 dfL1 <- data.frame(cbind(lnfig, MeanPredDer))
 FigL1 <- ggplot(dfL1, aes(lnfig)) +                    # basic graphical object
-  geom_line(aes(y=MeanPredDer), colour="blue", size = 1.2) +  # second layer
+  geom_line(aes(y=MeanPredDer), colour="blue", linewidth = 1.2) +  # second layer
   xlab("lnGDP") + ylab("Gini") +
   geom_vline(xintercept=pibMin, colour = "red") +
   geom_vline(xintercept=pibMax, colour = "red") +
   geom_hline(yintercept=0, colour = "red")
 
 FigL1
-
-################################# Beta-Binomial prior model probability #################################
-############################### Fixed effects OLS Reg: Individual + Time ################################
-
-k <- dim(cbind(FixedEff,TimeEff,X))[2]
-
-logMargLikeFunctNormal <- function(Xr){
-  Reg <- lm(gini~FixedEff+TimeEff+Xr)
-  ResReg <- summary(Reg) 
-  k <- length(ResReg[["coefficients"]][,1]) 
-  BIC <- k*log(n)+n*log(ResReg[["sigma"]]^2*(n-k)/n)
-  logMargLike <- -BIC/2
-  return(logMargLike)
-}
-logMargLikeFunctNormal(X)
-
-logMargLikOLS <- NULL
-for(m in 1:dim(M)[1]){
-  idXs <- which(M[m,] == 1)
-  Xm <- X[,idXs]
-  if(length(idXs)==0){
-    Reg <- lm(gini~FixedEff+TimeEff)
-    ResReg <- summary(Reg) 
-    k <- length(ResReg[["coefficients"]][,1]) 
-    BIC <- k*log(n)+n*log(ResReg[["sigma"]]^2*(n-k)/n)
-    logMargLike <- -BIC/2
-    logMargLikOLS[m] <- logMargLike
-  }else{
-    logMargLikOLS[m] <- logMargLikeFunctNormal(Xm)
-  }
-  print(m)
-}
-
-idXs <- which(M[which.max(logMargLikOLS),] == 1)
-Xm <- X[,idXs]
-RegMax <- lm(gini~FixedEff+TimeEff+Xm-1)
-summary(RegMax)
-
-PriorOdds <- function(Xr, l){
-  # Xr: design matrix
-  # l: prior model size
-  if(is.null(dim(Xr)[2])==1){
-    ks <- 1
-  }else{
-    ks <- dim(Xr)[2]
-  }
-  kr <- ks # +dim(FixedEff)[2]+dim(TimeEff)[2]
-  km <- (kr - l)/l
-  LogNumPriorOdds <- lgamma(1+kr)+lgamma(km+k-kr)
-  return(LogNumPriorOdds)
-}
-PriorOdds(Xr = X, l = 5)
-
-l <- 5
-LogNumPriorOdds <- NULL
-for(m in 1:dim(M)[1]){
-  idXs <- which(M[m,] == 1)
-  Xm <- X[,idXs]
-  if(length(idXs)==0){
-    kr <- 0 #dim(FixedEff)[2]+dim(TimeEff)[2]
-    km <- (kr - l)/l
-    LogNumPriorOdds[m] <- lgamma(1+kr)+lgamma(km+k-kr)
-  }else{
-    LogNumPriorOdds[m] <- PriorOdds(Xr = Xm, l = l)
-  }
-  print(m)
-}
-
-logPostOdds <- logMargLikOLS+LogNumPriorOdds
-
-idMax <- which.max(logPostOdds)
-plot(sapply(1:2^14, function(m){exp(LogNumPriorOdds[m]-LogNumPriorOdds[idMax])}))
-OddsRatMax <- NULL
-for(m in 1:dim(M)[1]){
-  OddsRatMax[m] <- exp(LogNumPriorOdds[m]+logMargLikOLS[m]-(LogNumPriorOdds[idMax]+logMargLikOLS[idMax]))
-}
-
-summary(OddsRatMax)
-Pmax <- 1/sum(OddsRatMax)
-ProbModel <- OddsRatMax*Pmax 
-summary(ProbModel)
-plot(ProbModel)
-ProbModelOrd <- sort(ProbModel, decreasing = TRUE)
-idBestMo <- sapply(1:length(ProbModelOrd), function(i){which(ProbModel == ProbModelOrd[i])})
-nbest <- 1:10
-Top10 <- cbind(ProbModelOrd[nbest], M[idBestMo[nbest],])
-sum(ProbModelOrd[nbest])
-PIP <- sort(colSums(ProbModelOrd*M[idBestMo,]), decreasing = TRUE)
-PIP
-OLSfixedIndTim <- list(Top10 = Top10, PIP = PIP)
-save(OLSfixedIndTim, file = "OLSfixedIndTimBetaBinNew.RData")
-load(file = "OLSfixedIndTimBetaBinNew.RData")
-
-
-############################### OLS Reg ################################
-logMargLikeFunctNormal <- function(Xr){
-  Reg <- lm(gini~Xr)
-  ResReg <- summary(Reg) 
-  k <- length(ResReg[["coefficients"]][,1]) 
-  BIC <- k*log(n)+n*log(ResReg[["sigma"]]^2*(n-k)/n)
-  logMargLike <- -BIC/2
-  return(logMargLike)
-}
-logMargLikeFunctNormal(X)
-
-logMargLikOLS <- NULL
-for(m in 1:dim(M)[1]){
-  idXs <- which(M[m,] == 1)
-  Xm <- X[,idXs]
-  if(length(idXs)==0){
-    Reg <- lm(gini~1)
-    ResReg <- summary(Reg) 
-    k <- length(ResReg[["coefficients"]][,1]) 
-    BIC <- k*log(n)+n*log(ResReg[["sigma"]]^2*(n-k)/n)
-    logMargLike <- -BIC/2
-    logMargLikOLS[m] <- logMargLike
-  }else{
-    logMargLikOLS[m] <- logMargLikeFunctNormal(Xm)
-  }
-  print(m)
-}
-
-idXs <- which(M[which.max(logMargLikOLS),] == 1)
-Xm <- X[,idXs]
-RegMax <- lm(gini~FixedEff+TimeEff+Xm-1)
-summary(RegMax)
-
-OddsRatMax <- NULL
-for(m in 1:dim(M)[1]){
-  OddsRatMax[m] <- exp(logMargLikOLS[m]-logMargLikOLS[which.max(logMargLikOLS)])
-}
-summary(OddsRatMax)
-Pmax <- 1/sum(OddsRatMax)
-ProbModel <- OddsRatMax*Pmax 
-summary(ProbModel)
-plot(ProbModel)
-ProbModelOrd <- sort(ProbModel, decreasing = TRUE)
-idBestMo <- sapply(1:length(ProbModelOrd), function(i){which(ProbModel == ProbModelOrd[i])})
-nbest <- 1:10
-Top10 <- cbind(ProbModelOrd[nbest], M[idBestMo[nbest],])
-sum(ProbModelOrd[nbest])
-PIP <- sort(colSums(ProbModelOrd*M[idBestMo,]), decreasing = TRUE)
-OLS <- list(Top10 = Top10, PIP = PIP)
-save(OLS, file = "OLSNew.RData")
-load(file = "OLSNew.RData")
-
-
-############################### Beta Reg ################################
-library(dplyr)
-dataMean <- data %>%
-  group_by(country) %>% 
-  summarise(meanlnGDPpc = mean(lnGDPpc),
-            meanlnGDPpc2 = mean(lnGDPpc2),
-            meanlnGDPpc3 = mean(lnGDPpc3),
-            meantrade = mean(trade),
-            meanfdi = mean(fdi),
-            meanschool = mean(school),
-            meanrents = mean(rents),
-            meangasoline = mean(gasoline),
-            meanland = mean(land),
-            meanaid = mean(aid),
-            meanareXGasoline = mean(areaXgasoline),
-            meanethnic_gini = mean(ethnic_gini),
-            meanfederal = mean(federalXlnGDPpc),
-            meanpolity2 = mean(polity2))
-
-dataNew <- merge(data, dataMean, by="country")
-attach(dataNew)
-X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, trade, fdi, school, rents, gasoline,
-           land, aid, areaXgasoline, ethnic_gini, federalXlnGDPpc, polity2)
-Xmean <- cbind(meanlnGDPpc, meanlnGDPpc2, meanlnGDPpc3, meantrade, meanfdi, meanschool, meanrents, meangasoline,
-               meanland, meanaid, meanareXGasoline, meanethnic_gini, meanfederal, meanpolity2) 
-BetaReg <- betareg(gini~X+Xmean+TimeEff, data = dataNew)
-summary(BetaReg)
-
-BetaReg1 <- betareg(gini~X+TimeEff, data = dataNew)
-summary(BetaReg1)
-n <- length(gini)
-logMargLikeFunct <- function(Xr,Xrmean){
-  # Xr <- X; Xrmean <- Xmean
-  BetaReg <- betareg(gini~Xr+Xrmean+TimeEff, data = dataNew)
-  k <- length(BetaReg[["coefficients"]]$mean)+1
-  BIC <- k*log(n)-2*BetaReg[["loglik"]] 
-  logMargLike <- -BIC/2
-  return(logMargLike)
-}
-logMargLikeFunct(X, Xmean)
-
-logMargLik <- NULL
-for(m in 1:dim(M)[1]){
-  idXs <- which(M[m,] == 1)
-  Xm <- X[,idXs]
-  XmMean <- Xmean[,idXs]
-  if(length(idXs)==0){
-    BetaReg <- betareg(gini~TimeEff, data = dataNew)
-    k <- length(BetaReg[["coefficients"]]$mean)+1
-    BIC <- k*log(n)-2*BetaReg[["loglik"]]
-    logMargLike <- -BIC/2
-    logMargLik[m] <- logMargLike
-  }else{
-    logMargLik[m] <- logMargLikeFunct(Xm,XmMean)
-  }
-  print(m)
-}
-
-idXs <- which(M[which.max(logMargLik),] == 1)
-Xm <- X[,idXs]; Xmmean <- Xmean[,idXs]
-BetaRegMax <- betareg(gini~Xm+Xmmean+TimeEff, data = dataNew)
-summary(BetaRegMax)
-
-OddsRatMax <- NULL
-for(m in 1:dim(M)[1]){
-  OddsRatMax[m] <- exp(logMargLik[m]-logMargLik[which.max(logMargLik)])
-}
-summary(OddsRatMax)
-Pmax <- 1/sum(OddsRatMax)
-ProbModel <- OddsRatMax*Pmax 
-summary(ProbModel)
-plot(ProbModel)
-ProbModelOrd <- sort(ProbModel, decreasing = TRUE)
-idBestMo <- sapply(1:length(ProbModelOrd), function(i){which(ProbModel == ProbModelOrd[i])})
-nbest <- 1:10
-Top10 <- cbind(ProbModelOrd[nbest], M[idBestMo[nbest],])
-sum(ProbModelOrd[nbest])
-PIP <- colSums(ProbModelOrd*M[idBestMo,])
-names(PIP) <- names(data[,-c(1:3,18:21)])
-Beta <- list(Top10 = Top10, PIP = PIP)
-save(Beta, file = "BetaNew.RData")
-load(file = "BetaNew.RData")
-
-
-
-####### Jointness #######
-Ms <- 1:2^14
-Ind12 <- ifelse(M[,1] == 1 & M[,2]== 1, 1, 0)
-PMPX12 <- sum(ProbModel[which(Ind12 == 1)])
-
-Ind1n2 <- ifelse(M[,1] == 1 & M[,2]== 0, 1, 0)
-PMPX1n2 <- sum(ProbModel[which(Ind1n2 == 1)])
-
-Indn1n2 <- ifelse(M[,1] == 0 & M[,2]== 0, 1, 0)
-PMPXn1n2 <- sum(ProbModel[which(Indn1n2 == 1)])
-
-Indn12 <- ifelse(M[,1] == 0 & M[,2]== 1, 1, 0)
-PMPXn12 <- sum(ProbModel[which(Indn12 == 1)])
-
-Ind123 <- ifelse(M[,1] == 1 & M[,2]== 1 & M[,3] == 1, 1, 0)
-Ind123T <- which(Ind123 == 1)
-PPM123 <- ProbModel[Ind123T]
-PMPX123 <- sum(PPM123)
-PMPX123Max <- max(PPM123)
-
-Ind12n3 <- ifelse(M[,1] == 1 & M[,2]== 1 & M[,3] == 0, 1, 0)
-Ind12n3T <- which(Ind12n3 == 1)
-PPM12n3 <- ProbModel[Ind12n3T]
-PMPX12n3 <- sum(PPM12n3)
-PMPX12n3Max <- max(PPM12n3)
-
-########## With or without you? ###########
-# DataNew <- na.omit(data)
-# attach(DataNew)
-# attach(data)
-# FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
-# X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, trade, fdi, school, rents, gasoline,
-#            land, aid, areaXgasoline, ethnic_gini, lnGPDpcXfederal, polity2)
-
-
-idXsBest <- which(M[idBestMo[1],] == 1)
-XBest <- X[,idXsBest]
-RegBest <- lm(gini~XBest+FixedEff+TimeEff)
-summary(RegBest)
-
-RegBestgini <- lm(gini~XBest[,-c(1:3)]+FixedEff+TimeEff)
-RegBestGDP <- lm(XBest[,1]~XBest[,-c(1:3)]+FixedEff+TimeEff)
-RegBestGDP2 <- lm(XBest[,2]~XBest[,-c(1:3)]+FixedEff+TimeEff)
-RegBestGDP3 <- lm(XBest[,3]~XBest[,-c(1:3)]+FixedEff+TimeEff)
-Resy <- RegBestgini$res 
-Res1 <- RegBestGDP$res
-Res2 <- RegBestGDP2$res 
-Res3 <- RegBestGDP3$res
-RegResid <- lm(Resy~Res1+Res2+Res3-1)
-summary(RegResid)
-
-IdOrd <- order(XBest[,1])
-Xpred <- data.frame(cbind(XBest[IdOrd,], FixedEff[IdOrd,], TimeEff[IdOrd,]))
-PredGini <- predict(RegBest, newdata = Xpred, se.fit = TRUE)
-plot(XBest[IdOrd,1], PredGini[["fit"]], type = "l")
-
-PredG <- RegResid$coef[1]*XBest[IdOrd,1]+RegResid$coef[2]*XBest[IdOrd,2]+
-  RegResid$coef[3]*XBest[IdOrd,3]
-plot(XBest[IdOrd,1], PredG, type = "l")
-
-# R program to calculate root of an equation
-
-# Function with equation
-fun <- function(x){RegResid$coef[1]+2*RegResid$coef[2]*x+3*RegResid$coef[3]*x^2}
-plot(XBest[IdOrd,1], fun(x=XBest[IdOrd,1]), type = "l")
-abline(h=0, col = "red")
-fun(8.655) # 8.655 maximizes inequality 
-fun(10.381) # 10.381 minimizes inequality
-# Calling uniroot() function
-# Roots <- uniroot(fun, interval = c(5, 12)) # No working!!!
-
-attach(data)
-# FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEff <- cbind(t1, t2, t3, t4)
-# X <- cbind(lnGDPpc, lnGDPpc2, lnGDPpc3, trade, fdi, school, rents, gasoline,
-#            land, aid, areaXgasoline, ethnic_gini, lnGPDpcXfederal, polity2)
-# 
-# XBest <- X[,idXsBest]
-form <- gini~XBest+FixedEff+TimeEff 
-RegBest <- lm(form)
-Resultado <- summary(RegBest)
-print(Resultado)
-
-Xno <- XBest[-RegBest[["na.action"]],]
-FixedEffno <- FixedEff[-RegBest[["na.action"]],]
-TimeEffno <- TimeEff[-RegBest[["na.action"]],]
-
-Xn <- cbind(1, Xno, FixedEffno, TimeEffno)
-IdVarno <- which(is.na(RegBest[["coefficients"]])==1)
-Xno <- Xn[,-IdVarno]
-Yn <- gini[-RegBest[["na.action"]]]
-solve(t(Xno)%*%Xno)%*%t(Xno)%*%Yn
-
-RegMCMC <- MCMCpack::MCMCregress(Yn~Xno-1, mcmc = 6000, burnin = 1001, thin = 1)
-BayesReg <- summary(RegMCMC)
-thetamean <- BayesReg$statistics[,1]
-XnoBar <- colMeans(Xno)
-XnoBar[2:4] <- 0
-Cte <- c(XnoBar%*%thetamean[-length(thetamean)])
-
-####### Level ########
-funPred <- function(theta){Cte + theta[1]*XBest[IdOrd,1]+theta[2]*XBest[IdOrd,1]^2+theta[3]*XBest[IdOrd,1]^3}
-theta0 <- colMeans(RegMCMC[,2:4])
-MeanPred <- funPred(theta0)
-plot(lnGDPpc, gini, ylim = c(0, 0.17))
-par(new=TRUE)
-plot(XBest[IdOrd,1], funPred(theta0), type = "l", col = "blue", ylim = c(0, 0.17))
-plot(XBest[IdOrd,1], funPred(theta0), type = "l", col = "blue")
-
-funPredDer <- function(theta){theta[1]+2*theta[2]*XBest[IdOrd,1]+3*theta[3]*XBest[IdOrd,1]^2}
-MeanPredDer <- funPredDer(theta0)
-plot(XBest[IdOrd,1], funPredDer(theta0), type = "l", col = "blue")
-abline(h=0, col = "red")
-theta0[1]+2*theta0[2]*8.655+3*theta0[3]*8.655^2
-theta0[1]+2*theta0[2]*10.381+3*theta0[3]*10.381^2
-# 8.655 maximizes inequality 
-# 10.381 minimizes inequality
-
-require(ggplot2)
-df <- data.frame(cbind(gini, XBest[IdOrd,1], MeanPred))
-
-ggplot(df, aes(XBest[IdOrd,1])) +                    # basic graphical object
-  geom_point(aes(y=gini), colour="black") +  # first layer
-  geom_line(aes(y=MeanPred), colour="blue") +  # second layer
-  xlab("lnGDP") + ylab("Gini")
-
-Preds <- apply(RegMCMC[,2:4], 1, funPred)
-Qpreds <- apply(t(Preds), 2, function(x)quantile(x, c(0.025, 0.5, 0.975)))
-RestQpred <- cbind(XBest[IdOrd,1], t(Qpreds))
-plot(XBest[IdOrd,1], Qpreds[2,], type = "l")
-plot(XBest[IdOrd,1], Qpreds[1,], type = "l")
-plot(XBest[IdOrd,1], Qpreds[3,], type = "l")
-
-plot(XBest[IdOrd,1], Qpreds[2,], type = "l", ylim = c(0, 1.2))
-lines(XBest[IdOrd,1],Qpreds[1,],col="green")
-lines(XBest[IdOrd,1],Qpreds[3,],col="green")
-
-funPredx <- function(theta, x){Cte + theta[1]*x+theta[2]*x^2+theta[3]*x^3}
-PredsMin <- apply(RegMCMC[,2:4], 1, function(par){funPredx(par, x =8.655)})
-quantile(PredsMin,  probs = c(0.025, 0.5, 0.975))
-funPredx(theta0, x = 8.655)
-
-theta0 <- RegMCMC[i,2:4]
-theta0 <- colMeans(RegMCMC[,2:4])
-funPredDerXs <- function(x){theta0[1]+2*theta0[2]*x+3*theta0[3]*x^2}
-quantile(PredsMin,  probs = c(0.025, 0.5, 0.975))
-funPredDerXs(x = 8.655)
-funPredDerXs(x = 10.381)
-funPredDerXs(x = 5)
-funPredDerXs(x = 12)
-uniroot(funPredDerXs, lower = 7, upper = 9.5)
-uniroot(funPredDerXs, lower = 9.5, upper = 12)
-
-MeanPredDer <- funPredDerXs(x=XBest[IdOrd,1])
-
-df <- data.frame(cbind(gini, XBest[IdOrd,1], MeanPred, MeanPredDer))
-library(ggpubr)
-
-Fig1 <- ggplot(df, aes(XBest[IdOrd,1])) +                    # basic graphical object
-  geom_point(aes(y=gini), colour="black") +  # first layer
-  geom_line(aes(y=MeanPred), colour="blue", size = 1.2) +  # second layer
-  xlab("lnGDP") + ylab("Gini") +
-  geom_vline(xintercept=8.655, colour = "red") +
-  geom_vline(xintercept=10.381, colour = "red")
-
-Fig2 <- ggplot(df, aes(XBest[IdOrd,1])) +                    # basic graphical object
-  geom_line(aes(y=MeanPredDer), colour="blue", size = 1.2) +  # second layer
-  xlab("lnGDP") + ylab("Derivative") + 
-  geom_hline(yintercept=0, colour = "black") +
-  geom_vline(xintercept=8.655, colour = "red") +
-  geom_vline(xintercept=10.381, colour = "red")
-
-library(ggpubr)
-ggarrange(Fig1, Fig2, 
-          labels = c("A", "B"),
-          ncol = 1, nrow = 2)
-
-exp(8.655) # around country position 80 by GDPpc
-exp(10.381) # around country position 160 by GDPpc
-require(dplyr)
-SumData <- data %>% 
-  mutate(GDPpc = exp(lnGDPpc)) %>% 
-  group_by(country) %>%  
-  summarise(mean_GDPpc = mean(GDPpc), 
-            .groups = "drop") 
-
-
-funPredDerXs <- function(x, theta){theta[1]+2*theta[2]*x+3*theta[3]*x^2}
-PredsMinDerMin <- apply(RegMCMC[,2:4], 1, function(par){funPredDerXs(par, x =8.655)})
-quantile(PredsMinDerMin,  probs = c(0.025, 0.5, 0.975))
-
-PredsMinDerMax <- apply(RegMCMC[,2:4], 1, function(par){funPredDerXs(par, x =10.381)})
-quantile(PredsMinDerMax,  probs = c(0.025, 0.5, 0.975))
-
-lnGDPmin <- NULL
-SeqSim <- 1:dim(RegMCMC)[1]
-evalsPoints <- seq(5, 11, 0.1)
-for(i in SeqSim){
-  evals <- which(sign(sapply(evalsPoints, function(x) {funPredDerXs(x, theta = RegMCMC[i,2:4])}))==-1)[1]
-  # funPredDerXs(x = evalsPoints[evals-1], theta = RegMCMC[i,2:4])
-  # funPredDerXs(x = evalsPoints[evals], theta = RegMCMC[i,2:4])
-  if(is.na(evals) != 1){
-    lnGDPmini <- uniroot(funPredDerXs, lower = evalsPoints[evals-1], upper = evalsPoints[evals], theta = RegMCMC[i,2:4])$root
-  }else{
-    lnGDPmini <- NA
-  }
-  lnGDPmin <- c(lnGDPmin, lnGDPmini)
-}
-PercNOchangeMin <- sum(is.na(lnGDPmin))/dim(RegMCMC)[1]
-PercNOchangeMin
-ChangeMin <- lnGDPmin[which(is.na(lnGDPmin) != 1)]
-quantile(ChangeMin, probs = c(0.025, 0.5, 0.975))
-mean(ChangeMin)
-
-MatrixRes <- matrix(0, dim(RegMCMC)[1], length(XBest[IdOrd,1]))
-for(i in 1:dim(RegMCMC)[1]){
-  MatrixRes[i, ] <- sapply(XBest[IdOrd,1], function(x) {funPredDerXs(x = x, theta = RegMCMC[i,2:4])})
-}
-plot(XBest[IdOrd,1], MatrixRes[i,])
-matplot(t(MatrixRes), type = "l")
-QuantDer <- apply(MatrixRes, 2, function(x){quantile(x, probs = c(0.025, 0.975))}) 
-plot(XBest[IdOrd,1], QuantDer[1,], type = "l")
-abline(h = 0, col ="red")
-plot(XBest[IdOrd,1], QuantDer[2,], type = "l")
-summary(coda::mcmc(RegMCMC[,2:4]))$quantile[, 5]
-Ens <- sapply(XBest[IdOrd,1], function(x) {funPredDerXs(x = x, theta = summary(coda::mcmc(RegMCMC[,2:4]))$quantile[, 1])})
-plot(XBest[IdOrd,1], Ens, type = "l")
-
-MatrixResNivel <- matrix(0, dim(RegMCMC)[1], length(XBest[IdOrd,1]))
-for(i in 1:dim(RegMCMC)[1]){
-  MatrixResNivel[i, ] <- sapply(XBest[IdOrd,1], function(x) {funPredx(x = x, theta = RegMCMC[i,2:4])})
-}
-plot(XBest[IdOrd,1], MatrixResNivel[i,])
-matplot(t(MatrixResNivel), type = "l")
-QuantNivel <- apply(MatrixResNivel, 2, function(x){quantile(x, probs = c(0.025, 0.975))}) 
-plot(XBest[IdOrd,1], QuantNivel[1,], type = "l")
-plot(XBest[IdOrd,1], QuantNivel[2,], type = "l")
-
-lnGDPmax <- NULL
-SeqSim <- 1:dim(RegMCMC)[1]
-evalsPoints <- seq(20, 7.5, -0.1)
-for(i in SeqSim){
-  evals <- which(sign(sapply(evalsPoints, function(x) {funPredDerXs(x, theta = RegMCMC[i,2:4])}))==-1)[1]
-  # funPredDerXs(x = evalsPoints[evals-1], theta = RegMCMC[i,2:4])
-  # funPredDerXs(x = evalsPoints[evals], theta = RegMCMC[i,2:4])
-  if(is.na(evals) == 1 | evals == 1){
-    lnGDPmaxi <- NA
-  }else{
-    lnGDPmaxi <- uniroot(funPredDerXs, lower = evalsPoints[evals], upper = evalsPoints[evals-1], theta = RegMCMC[i,2:4])$root
-  }
-  lnGDPmax <- c(lnGDPmax, lnGDPmaxi)
-}
-PercNOchangeMax <- sum(is.na(lnGDPmax))/dim(RegMCMC)[1]
-PercNOchangeMax
-ChangeMax <- lnGDPmax[which(is.na(lnGDPmax) != 1)]
-quantile(ChangeMax, probs = c(0.025, 0.5, 0.975))
-mean(ChangeMax)
-
-###### Derivative #######
-
-funPredDer <- function(theta){theta[1]+2*theta[2]*XBest[IdOrd,1]+3*theta[3]*XBest[IdOrd,1]^2}
-theta0 <- RegMCMC[1,2:4]
-plot(XBest[IdOrd,1], funPredDer(theta0), type = "l")
-
-PredsDer <- apply(RegMCMC[,2:4], 1, funPredDer)
-QpredsDer <- apply(t(PredsDer), 2, function(x)quantile(x, c(0.025, 0.5, 0.975)))
-RestQpredDer <- cbind(XBest[IdOrd,1], t(QpredsDer))
-plot(XBest[IdOrd,1], QpredsDer[2,], type = "l")
-abline(h=0, col = "red")
-plot(XBest[IdOrd,1], QpredsDer[1,], type = "l")
-plot(XBest[IdOrd,1], QpredsDer[3,], type = "l")
-
-plot(XBest[IdOrd,1], QpredsDer[2,], type = "l", ylim = c(-0.05, 0.05))
-lines(XBest[IdOrd,1],QpredsDer[1,],col="green")
-lines(XBest[IdOrd,1],QpredsDer[3,],col="green")
-abline(h=0, col = "red")
-
-################# Response to referee: Polynomial of degree 2 #########################
-rm(list=ls())
-memory.limit(size = 1048576)
-library(betareg)
-# data <- read.csv("simpleTAB04noNAv1.csv", sep = ",", header = TRUE)
-dataI <- read.csv("regionalKuznetsV3_pol3.csv", sep = ",", header = TRUE)
-attach(dataI)
-dataI$lnGPDpcXfederal <- federal*lnGDPpc
-summary(dataI)
-data <- na.omit(dataI)
-summary(data)
-attach(data)
-
-set.seed(010101)
-FixedEff <- as.matrix(fastDummies::dummy_cols(country)[,-1])
-# TimeEffex <- as.matrix(fastDummies::dummy_cols(year)[,-1])
-TimeEff <- cbind(t1, t2, t3, t4)
-# DataF <- cbind(data, FixedEff)
-# write.csv(DataF, file = "DataF.csv")
-X <- cbind(lnGDPpc, lnGDPpc2, trade, fdi, school, rents, gasoline,
-           land, aid, areaXgasoline, ethnic_gini, lnGPDpcXfederal, polity2)
-FixedReg <- lm(gini~FixedEff+TimeEff+X-1)
-summary(FixedReg)
-ResFixedReg <- summary(FixedReg) 
-M <- expand.grid(c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0), c(1,0))
-colnames(M) <- colnames(X)
-head(M)
-n <- length(gini)
-
-####################################### Equal model probability #########################################
-############################### Fixed effects OLS Reg: Individual + Time ################################
-logMargLikeFunctNormal <- function(Xr){
-  # Xr <- X[,1]
-  Reg <- lm(gini~FixedEff+TimeEff+Xr)
-  ns <- length(Reg$residuals)
-  ResReg <- summary(Reg) 
-  k <- length(ResReg[["coefficients"]][,1]) 
-  BIC <- k*log(ns)+ns*log(ResReg[["sigma"]]^2*(ns-k)/ns)
-  logMargLike <- -BIC/2
-  return(logMargLike)
-}
-logMargLikeFunctNormal(X)
-logMargLikeFunctNormal(X[,1:4])
-
-logMargLikOLS <- NULL
-for(m in 1:dim(M)[1]){
-  idXs <- which(M[m,] == 1)
-  Xm <- X[,idXs]
-  if(length(idXs)==0){
-    Reg <- lm(gini~FixedEff+TimeEff)
-    ns <- length(Reg$residuals)
-    ResReg <- summary(Reg) 
-    k <- length(ResReg[["coefficients"]][,1]) 
-    BIC <- k*log(ns)+ns*log(ResReg[["sigma"]]^2*(ns-k)/ns)
-    logMargLike <- -BIC/2
-    logMargLikOLS[m] <- logMargLike
-  }else{
-    logMargLikOLS[m] <- logMargLikeFunctNormal(Xm)
-  }
-  print(m)
-}
-
-idXs <- which(M[which.max(logMargLikOLS),] == 1)
-Xm <- X[,idXs]
-RegMax <- lm(gini~FixedEff+TimeEff+Xm-1)
-summary(RegMax)
-
-OddsRatMax <- NULL
-for(m in 1:dim(M)[1]){
-  OddsRatMax[m] <- exp(logMargLikOLS[m]-logMargLikOLS[which.max(logMargLikOLS)])
-}
-summary(OddsRatMax)
-Pmax <- 1/sum(OddsRatMax)
-ProbModel <- OddsRatMax*Pmax 
-summary(ProbModel)
-plot(ProbModel)
-ProbModelOrd <- sort(ProbModel, decreasing = TRUE)
-plot(ProbModelOrd)
-idBestMo <- sapply(1:length(ProbModelOrd), function(i){which(ProbModel == ProbModelOrd[i])})
-nbest <- 1:100
-Top10 <- cbind(ProbModelOrd[nbest], M[unlist(idBestMo[nbest]),])
-sum(ProbModelOrd[nbest])
-PIP <- colSums(ProbModelOrd[1:8192]*M[unlist(idBestMo[1:8192]),])
-OLSfixedIndTimPoly2 <- list(Top10 = Top10, PIP = PIP)
-save(OLSfixedIndTimPoly2, file = "OLSfixedIndTimNewPoly2ResponseRef.RData")
-load(file = "OLSfixedIndTimNewPoly2ResponseRef.RData")
-
 
